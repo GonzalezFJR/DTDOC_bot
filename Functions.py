@@ -71,6 +71,8 @@ def GetHelp():
   msg  = "Here you have a list of commands...\n"
   msg += " > cms - Get the CMS page1 pic\n"
   msg += " > lhc - Get the LHC page1 pic\n"
+  msg += " > links - Get the status of slice test links\n"
+  msg += " > status - Get the status the LHC\n"
   msg += " > run [run number] - Get info of the current or given run\n"
   msg += " > fill [run number] - Get info of the current or given fill\n"
   return msg

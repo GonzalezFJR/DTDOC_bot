@@ -47,8 +47,20 @@ class TelegramDTDOC:
       self.bot.sendMessage(chat_id, self.runinfo.GetFillSummary(fill_num))
     elif command.startswith('help'):
       self.bot.sendMessage(chat_id, GetHelp())
+    elif command.startswith('link'):
+      links = CheckLinks()
+      nLinksErr = links.CheckLinksFromFile()
+      msg = ' >> Links ok'
+      if nLinksErr != 0:
+        msg = (' >> Links are in error state...')
+      self.bot.sendMessage(chat_id, msg)
+    elif command == 'status':
+      status = self.runinfo.Get('status')
+      comments = self.runinfo.Get('comments')
+      self.bot.sendMessage(chat_id, status)
+      self.bot.sendMessage(chat_id, "CCC says:\n" + comments)
     elif command == '/start' or command == 'start':
-      msg = 'Welcome to the DTDOC bot!! Please, write "add me" if you would like to receive automatic notifications.'
+      msg = 'Welcome to the DTDOC bot!! Please, write "add me" if you would like to receive automatic notifications. Write "help" to get a list of commands.'
       self.bot.sendMessage(chat_id, msg)
       name = self.bot.getChat(chat_id)['first_name']
       print('%s started!'%name)
@@ -81,7 +93,7 @@ class TelegramDTDOC:
       status = str_LHCstatus
 
     if str_comments != comments:
-      self.SendTelegramAll(str_comments, send=(comments!=''))
+      self.SendTelegramAll("CCC says:\n" + str_comments, send=(comments!=''))
       comments = str_comments
 
     self.runinfo.Set('status', status);

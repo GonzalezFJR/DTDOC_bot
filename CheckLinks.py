@@ -1,5 +1,4 @@
 import os, time
-commandCheckLinks = lambda n : "tail %s -n %i"%(pathLogLinks, n)
 
 class CheckLinks:
 
@@ -11,9 +10,11 @@ class CheckLinks:
 
   def __init__(self, path='log.txt'):
     self.nLinkErrors = 0
+    self.path = path
     self.isFile = os.path.isfile(path)
   
   def GetLogLinks(self, n=6):
+    commandCheckLinks = lambda n : "tail %s -n %i"%(self.path, n)
     out = os.popen( commandCheckLinks(n) ).readlines()
     return out
 
@@ -32,17 +33,18 @@ class CheckLinks:
         if p == '': continue
         if p != "0/0.00E+00": ok = False
     if not ok:
-      print('[ERROR with slice test links] Number of errors: ', nErrors)
-      self.nErrors += 1
-      if self.nErrors >= 10:
+      print('[ERROR with slice test links] Number of errors: ', self.nLinkErrors)
+      self.nLinkErrors += 1
+      if self.nLinkErrors  >= 10:
         print('\n', out, '\n')
-    return self.nErrors
+      if nLinkErrors >= 60: self.ResetNerrors()
+    return self.nLinkErrors
 
   def GetNerrors(self):
-    return self.nErrors
+    return self.nLinkErrors
 
   def ResetNerrors(self):
-    self.nErrors = 0
+    self.nLinkErrors = 0
 
 if __name__ == '__main__':
   pass

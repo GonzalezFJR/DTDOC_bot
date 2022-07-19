@@ -13,9 +13,9 @@ while True:
   TDT.GetInfoFromCMSandUpdate()
 
   nLinksErr = links.CheckLinksFromFile()
-  if nLinksErr >= 10:
+  if nLinksErr >= 10 and nLinksErr <= 12:
     TDT.SendTelegramAll(">>>> ERROR <<<<\n Detected error with links to slice test...")
-    links.ResetNerrors()
+    #links.ResetNerrors()
 
   print(' >> ', GetTimestamp())
   time.sleep(nSecSleep)
