@@ -7,6 +7,7 @@ To run the telegram bot server you need the following python packages, that can 
 
     python-opencv
     telepot
+    numpy
 
 ### Run the code
 

@@ -2,6 +2,8 @@ import os, sys
 from datetime import datetime
 import time
 import cv2
+import numpy as np
+from urllib.request import urlopen
 
 ### Web pages
 pathToLHCpage1 = 'https://vistar-capture.s3.cern.ch/lhc1.png'
@@ -13,20 +15,23 @@ pngnameLHC = "lhc1.png"
 pngnameCMS = "cms.png"
 pngnameDAQ = "DAQstatusGre.jpg"
 
+def SaveFromWeb(url, name):
+  ''' Save a file from a web page '''
+  img_arr = np.asarray(bytearray(urlopen(url).read()), dtype=np.uint8)
+  img = cv2.imdecode(img_arr, cv2.IMREAD_UNCHANGED)
+  cv2.imwrite(name, img)
+
 def DownloadLHCpage1():
   if os.path.isfile(pngnameLHC): os.system('rm %s'%pngnameLHC)
-  command = "wget -q " + pathToLHCpage1 + " > /dev/null"
-  os.system(command)
-
+  SaveFromWeb(pathToLHCpage1, pngnameLHC)
+  
 def DownloadCMSpage1():
   if os.path.isfile(pngnameCMS): os.system('rm %s'%pngnameCMS)
-  command = "wget -q " + pathToCMSpage1 + " > /dev/null"
-  os.system(command)
+  SaveFromWeb(pathToCMSpage1, pngnameCMS)
 
 def DownloadDAQpage():
   if os.path.isfile(pngnameDAQ): os.system('rm %s'%pngnameDAQ)
-  command = "wget -q " + pathToDAQpage + " > /dev/null"
-  os.system(command)
+  SaveFromWeb(pathToDAQpage, pngnameDAQ)
 
 def DownloadPages():
   DownloadLHCpage1()
