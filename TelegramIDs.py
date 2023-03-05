@@ -9,7 +9,8 @@ class TelegramIDs:
     self.path = path
     if not os.path.isfile(self.path):
       print('Creating IDs json file: ', self.path)
-      os.system('echo "{}" > %s'%self.path)
+      with open(self.path, 'w') as f:
+        json.dump({}, f)
 
   def LoadFile(self):
     with open(self.path, 'r') as f:
