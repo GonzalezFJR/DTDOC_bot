@@ -1,21 +1,18 @@
 from TelegramDTDOC import *
-from CheckLinks import CheckLinks
 
 nSecSleep = 4
-links = CheckLinks()
-TDT = TelegramDTDOC("INSERT THE TELEGRAM CHAT ID HERE")
+TDT = TelegramDTDOC("HERE YOUR TELEGRAM BOT KEY")
 
 while True:
     
-  # Download and process the LHC and CMS page1 images...
-  DownloadPages()
-  TDT.GetInfoFromLHCandReport()
-  TDT.GetInfoFromCMSandUpdate()
-
-  nLinksErr = links.CheckLinksFromFile()
-  if nLinksErr >= 10 and nLinksErr <= 12:
-    TDT.SendTelegramAll(">>>> ERROR <<<<\n Detected error with links to slice test...")
-    #links.ResetNerrors()
+  # All kind of automatic notifications here!
+  DownloadCMSpage1()
+  DownloadDAQpage()
+  TakeCMSpage1bits()
+  TakeDAQpagebits()
+  status, update = IsCMSpage1Updated()
+  if update:
+    TDT.UpdateCMSstatus(status)
 
   print(' >> ', GetTimestamp())
   time.sleep(nSecSleep)

@@ -28,11 +28,24 @@ class TelegramIDs:
       json.dump(self.id, f)
 
   def AddField(self, idn, field, value=True):
-    if not idn in id_list:
+    if not idn in self.id_list:
       print('ERROR: id %s not found...'%str(idn))
+      print('Available IDs: ', self.id_list)
       return
     self.id[idn][field] = value
     self.UpdateFile()
+
+  def ActivateNotif(self, idn, value=True):
+    self.AddField(idn, 'notifications', value)
+
+  def CheckNotif(self, idn):
+    if not idn in self.id_list:
+      print('ERROR: id %s not found...'%str(idn))
+      return False
+    if 'notifications' in self.id[idn]:
+      return self.id[idn]['notifications']
+    else:
+      return False
 
   def GetIdList(self, permdict=[]):
     if isinstance(permdict, str) and ',' in permdict: permdict = permdict.replace(' ', '').split(',')
