@@ -19,6 +19,7 @@ class TelegramIDs:
       self.id_list = list(idd.keys())
 
   def AddId(self, new_id, name=None):
+    new_id = str(new_id)
     self.id[new_id] = {'name':name}
     self.id_list = list(self.id.keys())
     print("New ID added: ", new_id + ' ' if name is None else ' with name %s'%name)
@@ -29,6 +30,7 @@ class TelegramIDs:
       json.dump(self.id, f)
 
   def AddField(self, idn, field, value=True):
+    idn = str(idn)
     if not idn in self.id_list:
       print('ERROR: id %s not found...'%str(idn))
       print('Available IDs: ', self.id_list)
