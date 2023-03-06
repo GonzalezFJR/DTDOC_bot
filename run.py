@@ -1,7 +1,7 @@
 from TelegramDTDOC import *
 
 nSecSleep = 10
-TDT = TelegramDTDOC("YOUR_BOT_ADDRESS")
+TDT = TelegramDTDOC("YOUR BOT ID HERE")
 nUpdateRun = 0
 nUpdateComments = 0
 nUpdateFill = 0
@@ -13,16 +13,17 @@ while True:
     DownloadDAQpage()
     TakeCMSpage1bits() # Fill and comments
     TakeDAQpagebits()  # Run and DT DAQ status
-    status = IsCMSpage1Updated()
-    if status['run'] and status['daq']: nUpdateRun      += 1
-    if status['comments']             : nUpdateComments += 1
-    if status['fill']                 : nUpdateFill     += 1
+    status = IsCMSpage1Updated() 
+    nUpdateRun      = 0 if not status['run'     ] else (nUpdateRun+1)
+    nUpdateComments = 0 if not status['comments'] else (nUpdateComments+1)
+    nUpdateFill     = 0 if not status['fill'    ] else (nUpdateFill+1)
   except:
+    print('is there something wrong with the internet connexion?')
     pass
 
   if nUpdateRun >= 5:
     nUpdateRun = 0
-    TDT.UpdateCMSstatusRun(status)
+    TDT.UpdateCMSstatusRun()
 
   if nUpdateComments >= 5:
     nUpdateComments = 0

@@ -79,9 +79,9 @@ def TakeCMSpage1bits():
 def TakeDAQpagebits():
   if not os.path.isfile(pngnameDAQ): DownloadDAQpage()
   img = cv2.imread(pngnameDAQ) 
-  run = img[0:70, 680:850]
+  run = img[30:70, 690:763]
   dt_daq = img[360:375, 620:800]
-  daq = img[160:520, 620:920]
+  daq = img[6:520, 610:925]
   # If exists, move images to old
   if os.path.isfile('dt_daq.png'): os.system('mv dt_daq.png dt_daq_prev.png')
   if os.path.isfile('daq.png'): os.system('mv daq.png daq_prev.png')
@@ -94,7 +94,7 @@ def TakeDAQpagebits():
 
 def DoesImageChange(fname, fname_ref, fname_prev):
   if not os.path.isfile(fname): return False
-  if not os.path.idfile(fname_ref): 
+  if not os.path.isfile(fname_ref): 
     os.system('mv %s %s'%(fname, fname_ref))
     return False
   if not os.path.isfile(fname_prev):
@@ -107,7 +107,7 @@ def DoesImageChange(fname, fname_ref, fname_prev):
   diff_ref  = cv2.absdiff(img, img_ref)
   mse_prev = cv2.mean(diff_prev)[0]
   mse_ref  = cv2.mean(diff_ref)[0]
-  if mse_prev > 5.0 and mse_ref > 5.0:
+  if mse_prev == 0.0 and mse_ref > 0.0:
     print('There is a change in image %s (mse ref = %f, mse prev = %f)'%(fname, mse_ref, mse_prev))
     return True
   return False
@@ -123,4 +123,7 @@ def IsCMSpage1Updated():
   if DoesImageChange('dt_daq.png', 'dt_daq_ref.png', 'dt_daq_prev.png'):
     print('DT DAQ status has changed!')
     status['daq'] = True
+  if DoesImageChange('comments.png', 'comments_ref.png', 'comments_prev.png'):
+    print('New message from page1!')
+    status['comments'] = True
   return status
