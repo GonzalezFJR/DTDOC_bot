@@ -88,6 +88,11 @@ class TelegramDTDOC:
     self.SendTelegramPhotoAll("daq.png")
     os.system("mv run.png run_ref.png")
     os.system("mv dt_daq.png dt_daq_ref.png")
+
+  def UpdateCMSstatusNoRun(self):
+    self.SendTelegramAll("Run ended! We are not taking data at the moment, I will notify you when we start again.")
+    os.system("mv run.png run_ref.png")
+    os.system("mv dt_daq.png dt_daq_ref.png")
   
   def UpdateFill(self):
     self.SendTelegramAll("Fill changed!")

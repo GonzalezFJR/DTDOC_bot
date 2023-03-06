@@ -92,6 +92,18 @@ def TakeDAQpagebits():
   cv2.imwrite('daq.png', daq)
   cv2.imwrite('run.png', run)
 
+def IsBlankImage(fname):
+  ''' Check if the image is blank (no run number) '''
+  if not os.path.isfile(fname): return True
+  img = cv2.imread(fname)
+  img = cv2.addWeighted(img, 1.5, np.zeros(img.shape, img.dtype), 0, 0)
+  img = img[0:img.shape[0]-5, 0:img.shape[1]]
+  img = img.astype(np.float32)
+  mse = img.std()/len(img)
+  if mse < 0.1: 
+    return True
+  return False
+
 def DoesImageChange(fname, fname_ref, fname_prev):
   if not os.path.isfile(fname): return False
   if not os.path.isfile(fname_ref): 
@@ -113,7 +125,9 @@ def DoesImageChange(fname, fname_ref, fname_prev):
   return False
 
 def IsCMSpage1Updated():
-  status = {'fill':False, 'run':False, 'daq':False, 'dcs':False, 'comments':False}
+  status = {'fill':False, 'run':False, 'norun':False, 'daq':False, 'dcs':False, 'comments':False}
+  if IsBlankImage('run.png'):
+    status['norun'] = True
   if DoesImageChange('fill.png', 'fill_ref.png', 'fill_prev.png'): 
     print('Fill has changed!')
     status['fill'] = True
