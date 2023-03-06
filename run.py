@@ -1,11 +1,12 @@
 from TelegramDTDOC import *
 
 nSecSleep = 10
-TDT = TelegramDTDOC("YOUR_BOT_ID HERE")
+TDT = TelegramDTDOC("6003697434:AAHgPMyMdJqOo4xsQbbin95tUH1mDbrAO1A")
 nUpdateRun = 0
 nUpdateComments = 0
 nUpdateFill = 0
 nNoRun = 0
+isRun = True
 while True:
     
   # All kind of automatic notifications here!
@@ -25,9 +26,11 @@ while True:
 
   if nUpdateRun >= 5:
     nUpdateRun = 0
-    if nNoRun >= 3:
+    if nNoRun >= 3 and isRun:
+      isRun = False
       TDT.UpdateCMSstatusNoRun()
     else: 
+      isRun = True
       TDT.UpdateCMSstatusRun()
 
   if nUpdateComments >= 5:
