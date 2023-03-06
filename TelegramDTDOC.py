@@ -83,18 +83,18 @@ class TelegramDTDOC:
       if force or self.TID.CheckNotif(chat_id):
         self.bot.sendPhoto(chat_id, open(imgname,'rb'))
 
-  def UpdateCMSstatus(self, status):
-    ''' Send a message to everyone '''
-    if status['fill']:
-      msg = "New fill!"
-      self.SendTelegramAll(msg)
-      self.SendTelegramPhotoAll(status['fill'])
-    if status['run']:
-      msg = "New run!"
-      self.SendTelegramAll(msg)
-      self.SendTelegramPhotoAll(status['run'])
-    if status['daq']:
-      msg = "DT DAQ status changed!"
-      self.SendTelegramAll(msg)
-      self.SendTelegramPhotoAll(status['daq'])
+  def UpdateCMSstatusRun(self):
+    self.SendTelegramAll("DAQ status changed!")
+    self.SendTelegramPhotoAll("daq.png")
+    os.system("mv run.png run_ref.png")
+    os.system("mv dt_daq.png dt_daq_ref.png")
+  
+  def UpdateFill(self):
+    self.SendTelegramAll("Fill changed!")
+    self.SendTelegramPhotoAll("fill.png")
+    os.system("mv fill.png fill_ref.png")
 
+  def UpdateCMScomments(self):
+    self.SendTelegramAll("New page1 report: ")
+    self.SendTelegramPhotoAll("comments.png")
+    os.system("mv comments.png comments_ref.png")
