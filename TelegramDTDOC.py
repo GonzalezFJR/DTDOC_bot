@@ -92,18 +92,18 @@ class TelegramDTDOC:
         self.bot.sendPhoto(chat_id, open(imgname,'rb'))
 
   def UpdateCMSstatusRun(self):
-    self.SendTelegramAll("DAQ status changed!")
+    self.SendTelegramAll("Starting a new run (DAQ status changed):")
     self.SendTelegramPhotoAll("daq.png")
     os.system("mv run.png run_ref.png")
     os.system("mv dt_daq.png dt_daq_ref.png")
 
   def UpdateCMSstatusNoRun(self):
-    self.SendTelegramAll("Run ended! We are not taking data at the moment, I will notify you when we start again.")
+    self.SendTelegramAll("Run ended!")
     os.system("mv run.png run_ref.png")
     os.system("mv dt_daq.png dt_daq_ref.png")
   
   def UpdateFill(self):
-    self.SendTelegramAll("Fill changed!")
+    self.SendTelegramAll("New fill:")
     self.SendTelegramPhotoAll("fill.png")
     os.system("mv fill.png fill_ref.png")
 
