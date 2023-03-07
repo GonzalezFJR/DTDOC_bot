@@ -51,6 +51,8 @@ def GetHelp():
   msg += " > lhc - Get the LHC page1 pic\n"
   msg += " > daq - Get the DAQ status pic\n"
   msg += " > notifications on/off - Activate or deactivate notifications\n"
+  msg += " > links - Get a list of all the links that I know and you can ask me for\n"
+  msg += " > help - Get this help\n"
   return msg
 
 

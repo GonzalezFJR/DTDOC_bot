@@ -1,7 +1,7 @@
 from TelegramDTDOC import *
 
 nSecSleep = 10
-TDT = TelegramDTDOC("6003697434:AAHgPMyMdJqOo4xsQbbin95tUH1mDbrAO1A")
+TDT = TelegramDTDOC("YOUR_BOT_ADDRESS HERE")
 nUpdateRun = 0
 nUpdateComments = 0
 nUpdateFill = 0
@@ -29,6 +29,8 @@ while True:
     if nNoRun >= 3 and isRun:
       isRun = False
       TDT.UpdateCMSstatusNoRun()
+    elif nNoRun >= 3 and not isRun:
+      print('We have some update, but CMS is still not running!')
     else: 
       isRun = True
       TDT.UpdateCMSstatusRun()

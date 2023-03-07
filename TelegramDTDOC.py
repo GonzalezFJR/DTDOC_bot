@@ -1,6 +1,7 @@
 import telepot
 from Functions import *
 from TelegramIDs import TelegramIDs
+import json
 
 
 class TelegramDTDOC:
@@ -11,22 +12,22 @@ class TelegramDTDOC:
   def __init__(self, bot_address):
     self.SetupBot(bot_address)
     self.TID = TelegramIDs()
+    self.links = json.load(open('DTLinks.json', 'r'))
+    self.linkcommands = [str(x).lower().replace(' ', '') for x in self.links.keys()]
+    self.dictkeyslinks = {}
+    for k in self.links.keys():
+      self.dictkeyslinks[k.lower().replace(' ', '')] = k
 
   def handle(self, msg):
     chat_id = msg['chat']['id']
-    command = msg['text'].lower()
+    command = msg['text'].lower().replace(' ', '')
     print ('[BOT] Got command: %s, id = %s' %(command, chat_id))
   
     # Commands
-    if command.lower() in ['add', 'addme', 'add me']:
-      name = self.bot.getChat(chat_id)['first_name']
-      if str(chat_id) in self.TID.GetIdList():
-        self.bot.sendMessage(chat_id, 'Hi %s. You are already in the list!'%name)
-      else:
-        self.bot.sendMessage(chat_id, "Ok, added to the bot.")
-        self.TID.AddId(chat_id, name)
-        self.bot.sendMessage(chat_id, "Welcome, %s."%name)
-      self.bot.sendMessage(chat_id, GetHelp())
+
+    if command in self.linkcommands:
+      self.bot.sendMessage(chat_id, self.links[self.dictkeyslinks[command]]['link'])
+
     elif command.lower() in ["notifications on", "notificationson"]:
       self.TID.ActivateNotif(chat_id, True)
       self.bot.sendMessage(chat_id, "Ok, activating notifications.")
@@ -35,14 +36,21 @@ class TelegramDTDOC:
       self.bot.sendMessage(chat_id, "Ok, deactivating notifications.")
     elif command == '/start' or command == 'start':
       name = self.bot.getChat(chat_id)['first_name']
-      msg  = 'Hi %s, welcome to the DTDOC bot!! Please, write "add me" if you would like to receive automatic notifications. Write "help" to get a list of commands.'%name
+      msg  = 'Hi %s, welcome to the DTDOC bot!! Write "help" to get a list of commands.'%name
       msg2 = 'If you want to activate/deactivate notifications, write "notifications on/off. Enjoy!'
       self.bot.sendMessage(chat_id, msg)
       self.bot.sendMessage(chat_id, msg2)
       print('%s started!'%name)
+      if not str(chat_id) in self.TID.GetIdList():
+        self.TID.AddId(chat_id, name)
+        self.TID.ActivateNotif(chat_id, False)
+
     elif command.lower() == 'test':
       self.bot.sendMessage(chat_id, "Testing... ok!")
-
+    elif command in ['link', 'links']:
+      self.bot.sendMessage(chat_id, "This is a list of the links I know (tell me the name between brackets to get the link):")
+      for l in self.links:
+        self.bot.sendMessage(chat_id, '[%s]: %s'%(l, self.links[l]['desc']))
     elif command.lower() == 'cms':
       if not os.path.isfile(pngnameCMS):
         DownloadCMSpage1()

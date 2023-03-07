@@ -1,0 +1,55 @@
+{
+	"DT Run web" : {
+	    "desc" : "DT Run website",
+		"link" : "https://dt-sx5.web.cern.ch/dt-sx5/run/"
+	},
+	"elog" : {
+		"desc" : "e-log",
+		"link" : "https://cmsonline.cern.ch/webcenter/portal/cmsonline/Common/Elog"
+	},
+	"DAQ pannel": {
+		"desc" : "DAQ pannel in CMS online",
+		"link" : "https://cmsonline.cern.ch/webcenter/portal/cmsonline/pages_common/daq"
+	},
+	"DCS pannel" : {
+		"desc" : "DCS pannel in CMS online",
+		"link" : "https://cmsonline.cern.ch/webcenter/portal/cmsonline/pages_common/dcs"
+	},
+	"CMS online" : {
+		"desc" : "CMS online",
+		"link" : "https://cmsonline.cern.ch/"
+	},
+	"RC tools" : {
+		"desc" : "RC tools (to fill daily reports)",
+		"link" : "http://schwick.web.cern.ch/schwick/rctools/"
+	},
+	"OMS" : {
+		"desc" : "CMS OMS (runs info)",
+		"link" : "https://cmsoms.cern.ch/cms"
+	},
+	"DQM" : {
+		"desc" : "Online DQM",
+		"link" : "https://cmsweb.cern.ch/dqm/online/"
+	},
+	"DT DOC training" : {
+		"desc" : "Indico page for the latest DT DOC training, with the slides and the recording",
+		"link" : "https://indico.cern.ch/event/1166962/"
+	},
+	"twiki help" : {
+		"desc" : "Main twiki with DT DOC shifts info",
+		"link" : "https://twiki.cern.ch/twiki/bin/viewauth/CMS/DTshiftFAQ"
+	},
+	"twiki slice test" : {
+		"desc" : "Twiki with instructions for slice test",
+		"link" : "https://twiki.cern.ch/twiki/bin/view/CMS/DataTakingInstructionsSX5"
+	},
+	"twiki minidaq" : {
+		"desc" : "Twiki with instructions to take a local run",
+		"link" : "https://twiki.cern.ch/twiki/bin/viewauth/CMS/DTexpertFAQ2021x08x12"
+	},
+	"twiki known problems" : {
+		"desc" : "Twiki for the known problems",
+		"link" : "https://twiki.cern.ch/twiki/bin/view/CMS/DTshiftKnownProblem"
+	}
+}
+
