@@ -19,4 +19,4 @@ Run the bot with:
 
 ### Configure Telegram
 
-Just open the telegram app, search for the bot called `DTDOC_bot` and start the bot. Write `add me` in order to star receiving notifications.
+Just open the telegram app, search for the bot called `DTDOC_bot` and start the bot. 
