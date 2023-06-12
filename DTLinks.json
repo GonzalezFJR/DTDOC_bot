@@ -50,6 +50,10 @@
 	"twiki known problems" : {
 		"desc" : "Twiki for the known problems",
 		"link" : "https://twiki.cern.ch/twiki/bin/view/CMS/DTshiftKnownProblem"
+	},
+        "Trigger Rates" : {
+		"desc" : "DT trigger rates",
+		"link" : "http://venturas.web.cern.ch/venturas/trates.php"
 	}
 }
 

@@ -11,6 +11,7 @@ while True:
     
   # All kind of automatic notifications here!
   try:
+    DownloadLHCpage1()
     DownloadCMSpage1()
     DownloadDAQpage()
     TakeCMSpage1bits() # Fill and comments
